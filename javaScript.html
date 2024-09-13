@@ -1,46 +1,102 @@
 <script>
-  function crearTablaContactos(){
+  //const NOTIFICACION_OK = 1;
+  //const NOTIFICACION_DANGER= 2;
+  //const NOTIFICACION_WARNING = 3;
 
+  function crearTablaContactos(){
+    console.log('ingreso funcion 1')
     let tabla = document.getElementById('tablaContactos');
     if(tabla) tabla.remove();    
-    google.script.run.withSuccessHandler(
-      function(obj){
-        
-        let tabla = document.createElement('table');
-        tabla.id = 'tablaContactos';
-
-        let tablaHeader = document.createElement('thead');
-        let tablaBody = document.createElement('tbody');
-
-
-        Array.from(obj).forEach((filaActual, i) => {
-          let fila = document.createElement('tr');
-          filaActual.forEach(celdaActual => {
-            let celda = document.createElement('td');
-            celda.textContent = celdaActual;
-            fila.appendChild(celda);
-          });
-          if( i == 0){
-            tablaHeader.appendChild(fila);
-            tabla.appendChild(tablaHeader);
-          }else{
-           tablaBody.appendChild(fila);
-          }
-          
-        });
-        //agregamos clase a la cabecera 
-        tablaHeader.classList.add('table-dark');
-        //agregamos el cuerpo a la tabla
-        tabla.appendChild(tablaBody);
-        //agregamos clase a la tabla  
-        tabla.classList.add('table', 'table-striped', 'border', 'border-3','table-access');
-        //agregamos tabla a la pagina
-        document.getElementById('divContactos').appendChild(tabla);
-      }
-
-    ).obtenerContactos();
+    google.script.run
+    .withSuccessHandler(crearTabla)
+    .withFailureHandler(crearTablaError) 
+    .obtenerContactos();
 
   }
 
+  function crearTabla(obj){
+    console.log('ingreso a la tabla ')
+    let tabla = document.createElement('table');
+    tabla.id = 'tablaContactos';
+
+    let tablaHeader = document.createElement('thead');
+    let tablaBody = document.createElement('tbody');
+
+
+    Array.from(obj).forEach((filaActual, i) => {
+      let fila = document.createElement('tr');
+      filaActual.forEach(celdaActual => {
+        let celda = document.createElement('td');
+        celda.textContent = celdaActual;
+        fila.appendChild(celda);
+      });
+      if( i == 0){
+        tablaHeader.appendChild(fila);
+        tabla.appendChild(tablaHeader);
+      }else{
+        tablaBody.appendChild(fila);
+      }
+      
+    });
+    //agregamos clase a la cabecera 
+    tablaHeader.classList.add('table-dark');
+    //agregamos el cuerpo a la tabla
+    tabla.appendChild(tablaBody);
+    //agregamos clase a la tabla  
+    tabla.classList.add('table', 'table-striped', 'border', 'border-3','table-access');
+    //agregamos tabla a la pagina
+    document.getElementById('divContactos').appendChild(tabla);
+
+    //notificacion ok
+    crearNotificacion(NOTIFICACION_OK,'Contactos obtenidos correctamente ','Genial!');
+  }
+  
+  function crearTablaError(){
+   crearNotificacion(NOTIFICACION_DANGER,'No se ha regitrado los datos correctamente ','Error');
+  }
+
+  function crearNotificacion(mensaje,titulo){
+    document.getElementById('textoNotificacion').textContent = mensaje;
+    document.getElementById('tituloNotificacion').textContent = titulo;
+    let elementoNotificacion = document.getElementById('notificacion');
+    bootstrap.Toast.getOrCreateInstance(elementoNotificacion).show();
+    
+  }
+
+  function crearNotificacionOK(mensaje, titulo){
+   crearIconoNotificacionOK();
+   crearColorNotificacion('--color-verde-oscuro');
+     
+  }
+  function crearNotificacionError(mensaje, titulo){
+    crearIconoNotificacionError();
+    crearColorNotificacion('--color-rojo-oscuro');
+  }
+  function crearNotificacionAdvertencia(mensaje, titulo){
+    crearIconoNotificacionAdvertencia();
+    crearColorNotificacion('--color-amarillo-oscuro');
+
+  }
+
+  function crearIconoNotificacionOK(){
+    document.getElementById('iconoNotificacion').className = '';
+    document.getElementById('iconoNotificacion').classList.add('bi', 'bi-check2-square');
+  }
+  function crearIconoNotificacionError(){
+    document.getElementById('iconoNotificacion').className = '';
+    document.getElementById('iconoNotificacion').classList.add('bi', 'bi-bug');
+
+  }
+  function crearIconoNotificacionAdvertencia(){
+    document.getElementById('iconoNotificacion').className = '';
+    document.getElementById('iconoNotificacion').classList.add('bi', 'bi-exclamation-square');
+  }
+
+  function crearColorNotificacion(color){
+    let elementoNotificacion = document.getElementById('notificacion');
+    elementoNotificacion.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(color);
+  }
+
+  
 </script>
 
