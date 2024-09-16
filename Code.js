@@ -10,7 +10,7 @@ function obtenerDatosHTML(nombre){
 }
 
 function obtenerContactos(){
-  let hoja = SpreadsheetApp.openById('aaa1TpuT4NH63g10pDJel7NdV3xg9AhDbovQzNcZD_yCfFM').getActiveSheet();
+  let hoja = SpreadsheetApp.openById('1TpuT4NH63g10pDJel7NdV3xg9AhDbovQzNcZD_yCfFM').getActiveSheet();
   let datos = hoja.getDataRange().getValues();
   return datos;
 }

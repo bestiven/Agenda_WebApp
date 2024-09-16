@@ -4,15 +4,20 @@
   //const NOTIFICACION_WARNING = 3;
 
   function crearTablaContactos(){
-    console.log('ingreso funcion 1')
-    let tabla = document.getElementById('tablaContactos');
-    if(tabla) tabla.remove();    
+    
+    // Elimanamos  la tabla existente para que no se repita 
+    borrarTabla();
+
+    crearLoader('divContactos');
+
     google.script.run
     .withSuccessHandler(crearTabla)
     .withFailureHandler(crearTablaError) 
     .obtenerContactos();
 
   }
+
+  
 
   function crearTabla(obj){
     console.log('ingreso a la tabla ')
@@ -48,14 +53,17 @@
     document.getElementById('divContactos').appendChild(tabla);
 
     //notificacion ok
-    crearNotificacion(NOTIFICACION_OK,'Contactos obtenidos correctamente ','Genial!');
+    crearNotificacionOK('Contactos obtenidos correctamente ','Genial!');
+    eliminarLoader();
   }
   
   function crearTablaError(){
-   crearNotificacion(NOTIFICACION_DANGER,'No se ha regitrado los datos correctamente ','Error');
+   crearNotificacionError('No se ha regitrado los datos correctamente ','Error');
+   eliminarLoader();
   }
 
   function crearNotificacion(mensaje,titulo){
+    console.log('ingreso Funcion 2')
     document.getElementById('textoNotificacion').textContent = mensaje;
     document.getElementById('tituloNotificacion').textContent = titulo;
     let elementoNotificacion = document.getElementById('notificacion');
@@ -64,15 +72,18 @@
   }
 
   function crearNotificacionOK(mensaje, titulo){
+   crearNotificacion(mensaje,titulo);
    crearIconoNotificacionOK();
    crearColorNotificacion('--color-verde-oscuro');
      
   }
   function crearNotificacionError(mensaje, titulo){
+    crearNotificacion(mensaje,titulo);
     crearIconoNotificacionError();
     crearColorNotificacion('--color-rojo-oscuro');
   }
   function crearNotificacionAdvertencia(mensaje, titulo){
+    crearNotificacion(mensaje,titulo);
     crearIconoNotificacionAdvertencia();
     crearColorNotificacion('--color-amarillo-oscuro');
 
@@ -95,6 +106,39 @@
   function crearColorNotificacion(color){
     let elementoNotificacion = document.getElementById('notificacion');
     elementoNotificacion.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(color);
+  }
+
+  function crearLoader(elementoPadre){
+    eliminarLoader();
+     let loader = document.createElement('div');
+     loader.id = 'loader';
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.classList.add('lds-spinner');
+
+     document.getElementById(elementoPadre).appendChild(loader);
+
+  }
+
+  function eliminarLoader(){
+    let loader = document.getElementById('loader');
+    if(loader)loader.remove();
+  }
+
+  function borrarTabla(){
+    let tabla = document.getElementById('tablaContactos');
+    if(tabla) tabla.remove();    
+
   }
 
   
