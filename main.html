@@ -1,45 +1,74 @@
 <main>
   <!--Formulario-->
   <div class="d-flex justify-content-center my-3">
-    <!--Insertar con metodo post-->
-    <!--<form action="https://script.google.com/a/macros/ubate.org/s/AKfycbz56dohxhOgtLeAwucHWirl1fBDMhRG49Rk_xptGVwq/dev" method="post" id="formulario">-->
-    <!--Insertar con metodo dialog-->
-    <form onsubmit="insertarContacto()" method="dialog" id="formulario">
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Ingresa el nombre del contacto</label>
-        <input type="text" class="form-control" name="nombre" id="nombre">
-      </div>
-  
-      <div class="mb-3">
-        <label for="correo" class="form-label">Ingresa el correo</label>
-        <input type="email" class="form-control" name="correo" id="correo">
-      </div>
-      <!--Botones-->
-      <button type="button" class="btn btn-success m-3" onclick="crearTablaContactos()">Mostrar Usuarios</button>
-      <button type="submit" class="btn btn-primary">Crear contacto</button>
-  
-    </form>
+    <!--Botones Superiores-->
+    <button type="button" class="btn btn-success m-2" onclick="crearTablaContactos()">Mostrar Usuarios</button>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#crearContactoModal">
+      Nuevo contacto
+    </button>
   </div>
 
   <div class="container col-12 col-lg-6 d-flex justify-content-center" id="divContactos">
-
   </div>
 
   <!--Notificaciones-->
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
 
     <div id="notificacion" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive">
-
-        <div class="toast-header p-0">
-            <div class="icono-notificacion"><i id="iconoNotificacion"></i></div>
-            <strong class="me-auto" id="tituloNotificacion"></strong>
-            <button type="button" class="btn-close m-2" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body" id="textoNotificacion">
-
-        </div>
+      <div class="toast-header p-0">
+          <div class="icono-notificacion"><i id="iconoNotificacion"></i></div>
+          <strong class="me-auto" id="tituloNotificacion"></strong>
+          <button type="button" class="btn-close m-2" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" id="textoNotificacion">
+  
+      </div>
     </div>
+  </div>
 
-</div>
+    <!-- Modal -->
+  <div class=" modal fade" id="crearContactoModal" tabindex="-1" aria-labelledby="tituloCrearContactoModal" aria-hidden="true">
+    <div class=" modal-lg modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tituloCrearContactoModal">Nuevo contacto</h5>
+        </div>
+
+        <form onsubmit="insertarContacto()" method="dialog" id="formulario">
+            <div class="modal-body"> 
+                <!--Nombres y apellidos-->
+                <div class="row mb-3">
+                  <div class="col-4">
+                    <label for="nombre" class="form-label">Ingresa el nombre </label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" pattern="[\D]*" title="el nombre no puede contener numeros" required>
+                  </div>
+                  <div class="col-8">
+                    <label for="apellidos" class="form-label">Ingresa el apellido</label>
+                    <input type="text" class="form-control" name="apellidos" id="apellidos" pattern="[^0-9]*" title="el apellido no puede contener numeros" required>
+                  </div>
+                </div>
+                 
+                <!--Correo y telefono--> 
+                <div class="imput-group mb-3">
+                  <span class="imput-group-text"><i class="bi bi-envelope-fill"></i></span>
+                  <input type="email" class="form-control me-3" name="correo" id="correo" required>
+                </div>
+
+                <div class="mb-3">
+                  <span class="imput-group-text"><i class="bi bi-telephone-fill"></i></span>
+                  <input type="tel" class="form-control " name="telf" id="telf" pattern="[\d]{9,11}" title="el telefono debe contener entre 9 y 11 digitos numericos" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-success">Crear contacto</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
 </main>
