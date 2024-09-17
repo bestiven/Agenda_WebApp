@@ -1,7 +1,10 @@
 <main>
   <!--Formulario-->
-  <div class="d-flex justify-content-center mb-4">
-    <form action="" method="post" id="formulario">
+  <div class="d-flex justify-content-center my-3">
+    <!--Insertar con metodo post-->
+    <!--<form action="https://script.google.com/a/macros/ubate.org/s/AKfycbz56dohxhOgtLeAwucHWirl1fBDMhRG49Rk_xptGVwq/dev" method="post" id="formulario">-->
+    <!--Insertar con metodo dialog-->
+    <form onsubmit="insertarContacto()" method="dialog" id="formulario">
       <div class="mb-3">
         <label for="nombre" class="form-label">Ingresa el nombre del contacto</label>
         <input type="text" class="form-control" name="nombre" id="nombre">
@@ -12,7 +15,7 @@
         <input type="email" class="form-control" name="correo" id="correo">
       </div>
       <!--Botones-->
-      <button class="btn btn-success m-3" onclick="crearTablaContactos()">Mostrar Usuarios</button>
+      <button type="button" class="btn btn-success m-3" onclick="crearTablaContactos()">Mostrar Usuarios</button>
       <button type="submit" class="btn btn-primary">Crear contacto</button>
   
     </form>
