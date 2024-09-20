@@ -18,6 +18,19 @@
 
 }
 
+#contenedorNotificaciones {
+    position: fixed; /* Fijo en la pantalla */
+    bottom: 20px; /* Espacio desde la parte inferior */
+    right: 20px; /* Espacio desde la derecha */
+    z-index: 1050; /* Asegúrate de que esté por encima de otros elementos */
+    max-width: 300px; /* Ancho máximo de la notificación */
+    padding: 10px; /* Espaciado interno para que no quede tan pegado */
+}
+
+.toast {
+    margin-bottom: 10px; /* Espacio entre notificaciones si hay varias */
+}
+
 body{
   display:flex;
   flex-direction: column;
@@ -69,7 +82,16 @@ header {
   background: currentColor;
 }
 
-
+.subir-arriba{
+  background-color: var(--color-gris-claro); 
+  position: fixed;
+  transition: all .4s ease-in-out;
+  transform: scale(0);
+  bottom: 1%;
+  right: 1%;
+  z-index: 10;
+  
+}
 
 
 /*LOADER CARGUE*/

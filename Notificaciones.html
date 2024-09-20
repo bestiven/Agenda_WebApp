@@ -1,5 +1,5 @@
 <script>
-
+ console.log('llamada');
  //
   //N O T I F I C A C I O N E S
   //
@@ -13,6 +13,7 @@
 
 
   function crearNotificacionOK(mensaje, titulo) {
+    console.log('llegada de notificacion')
     crearNotificacion(titulo, mensaje, ICONO_CHECK, '--color-verde-oscuro');
   }
 
@@ -29,10 +30,11 @@
   }
 
   function crearNotificacionBorrar(mensaje, titulo) {
-    crearNotificacion(titulo, mensaje, ICONO_PAPELERA, '--color-gris-claro');
+    crearNotificacion(titulo, mensaje, ICONO_PAPELERA, '--color-azul-claro');
   }
 
   function crearNotificacion(titulo,mensaje,icono,color) {
+    console.log('llamada2',color);
     let notificacion = crearAtributosNotificacion();
     let cabeceraNotificacion = crearCabeceraNotificacion(titulo, icono);
     let cuerpoNotificacion = crearCuerpoNotificacion(mensaje);
@@ -43,10 +45,11 @@
 
     //establecer el color 
     notificacion.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(color);
-
+    console.log('llamada3',notificacion.style.backgroundColor);
     //evento 
     notificacion.addEventListener('hidden.bs.toast',function(){
       this.remove();
+      console.log('llega')
     });
 
     //agregamos al contenedor de notificaciones 
@@ -71,7 +74,7 @@
     let cabeceraNotificacion = document.createElement('div');
     cabeceraNotificacion.classList.add('toast-header', 'p-0');
 
-    //creamos el lottie pasado el contenedor 
+    //creamos el icono pasado el contenedor 
     crearIconoNotificacion(cabeceraNotificacion,icono);
 
     //crear titulo

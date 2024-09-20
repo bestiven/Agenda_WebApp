@@ -1,4 +1,22 @@
 <script>
+
+// Botón subir
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 400) {
+    document.getElementById('botonSubir').style.transform = 'scale(1)';
+  } else {
+    document.getElementById('botonSubir').style.transform = 'scale(0)';
+  }
+});
+
+  function subirArriba(){
+    console.log('hace el Scroll')
+    window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // Hace el scroll suave
+  });
+  }
+
   //const NOTIFICACION_OK = 1;
   //const NOTIFICACION_DANGER= 2;
   //const NOTIFICACION_WARNING = 3;
@@ -107,6 +125,16 @@
         let celda = document.createElement('td');
         celda.textContent = obj[i][j];
         fila.appendChild(celda);
+
+        //quinto elemento de la fila
+        if(j==4){
+          celda.textContent='';
+          let imagen = document.createElement('img');
+          imagen.classList.add('img-fluid','rounded');
+          imagen.src = obj[i][j];
+          celda.appendChild(imagen);
+        }
+
 
       }
       //agregar los botones a la fila 
