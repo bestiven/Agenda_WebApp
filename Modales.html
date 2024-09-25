@@ -1,5 +1,7 @@
 <script>
 
+  const IMAGEN_PERFIL = 'https://lh3.googleusercontent.com/d/1cmG2pIC2tAAOO6JZoGbNTQXQc7hG_6ZQ';
+
   function abrirModalCrearContacto(){
     // botón crear
     let boton = document.getElementById('botonCrearModificar');
@@ -18,7 +20,8 @@
     document.getElementById('apellidos').value = '';
     document.getElementById('correo').value = '';
     document.getElementById('telf').value = '';
-
+    document.getElementById('imagen').value ='';
+    document.getElementById('imgForm').src = IMAGEN_PERFIL;
     // abrir modal
     bootstrap.Modal.getOrCreateInstance(document.getElementById('crearContactoModal')).show();
   }

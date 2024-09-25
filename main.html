@@ -8,7 +8,7 @@
     <button type="button" class="btn btn-primary m-2" onclick="abrirModalCrearContacto()">Crear contacto</button>
     <button type="button" class="btn btn-warning m-2" onclick="importarContactos()">Crear + 5</button>
   </div>
-
+  <!--Contactos-->
   <div class="container col-12  d-flex justify-content-center" id="divContactos">
   </div>
 
@@ -33,27 +33,40 @@
             <div class="modal-body"> 
                 <!--Nombres y apellidos-->
                 <div class="row mb-3">
-                  <div class="col-4">
-                    <label for="nombre" class="form-label">Ingresa el nombre </label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" pattern="[\D]*" title="el nombre no puede contener numeros" required>
+                  <!--Parte Izquierda-->
+                  <div class="col-6 d-flex flex-column">
+                      <!--Nombre-->
+                      <div class="mb-2">
+                        <label for="nombre" class="form-label">Ingresa el nombre </label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" pattern="[\D]*" title="el nombre no puede contener numeros" required>
+                      </div>
+                      <!--Apellidos-->
+                      <div class="mb-2">
+                        <label for="apellidos" class="form-label">Ingresa el apellido</label>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos" pattern="[^0-9]*" title="el apellido no puede contener numeros" required>
+                      </div>
+                      <!--Correo-->
+                      <div class="imput-group mb-2">
+                        <span class="imput-group-text"><i class="bi bi-envelope-fill"></i></span>
+                        <input type="email" class="form-control " name="correo" id="correo" required>
+                      </div>
+                      <!--telefono-->
+                      <div class="imput-group mb-2">
+                        <span class="imput-group-text"><i class="bi bi-telephone-fill"></i></span>
+                        <input type="tel" class="form-control " name="telf" id="telf" pattern="[\d]{9,11}" title="el telefono debe contener entre 9 y 11 digitos numericos" required>
+                      </div>
+                      <!--Archivo-->
+                      <div class="mb-2">
+                        <label for="imagen" class="form-label">selecciona una imagen</label>
+                        <input type="file" accept="imagen/*" class="form-control" name="imagen" id="imagen">
+                      </div>
                   </div>
-                  <div class="col-8">
-                    <label for="apellidos" class="form-label">Ingresa el apellido</label>
-                    <input type="text" class="form-control" name="apellidos" id="apellidos" pattern="[^0-9]*" title="el apellido no puede contener numeros" required>
+                  <!--Parte Derecha-->
+                  <div class="col-6 d-flex justify-content-center align-items-center p-0">
+                    <img src="" class="img-fluid img-form" id="imgForm"  alt="Imagen de contacto">
                   </div>
+                  
                 </div>
-                 
-                <!--Correo y telefono--> 
-                <div class="imput-group mb-3">
-                  <span class="imput-group-text"><i class="bi bi-envelope-fill"></i></span>
-                  <input type="email" class="form-control me-3" name="correo" id="correo" required>
-                </div>
-
-                <div class="mb-3">
-                  <span class="imput-group-text"><i class="bi bi-telephone-fill"></i></span>
-                  <input type="tel" class="form-control " name="telf" id="telf" pattern="[\d]{9,11}" title="el telefono debe contener entre 9 y 11 digitos numericos" required>
-                </div>
-
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -66,3 +79,4 @@
 
 
 </main>
+

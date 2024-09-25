@@ -1,5 +1,8 @@
 const HOJA = SpreadsheetApp.openById('1TpuT4NH63g10pDJel7NdV3xg9AhDbovQzNcZD_yCfFM').getActiveSheet();
 
+const CARPETA = DriveApp.getFolderById('176y4TPNC9s8WqgSQ3faHwdSe6LJhIUyS');
+const CABECERA_URL_IMAGEN = 'https://lh3.googleusercontent.com/d/';
+
 function doGet() {
   return HtmlService.createTemplateFromFile('web').evaluate().setTitle('Agenda Contactos');
 
@@ -20,8 +23,15 @@ function obtenerDatos(){
   return HOJA.getDataRange().getValues();
 }
 
-function insertarContacto(nombre,apellidos,correo,telf){
-  HOJA.appendRow([nombre,apellidos,correo,telf]);
+function insertarContacto(contacto,imagen){
+
+  if(imagen){
+    let blob = Utilities.newBlob(imagen.datos,imagen.tipo,imagen.nombre);
+    let archivo = CARPETA.createFile(blob);
+    contacto.imagen = CABECERA_URL_IMAGEN+archivo.getId();
+  }
+
+  HOJA.appendRow([contacto.nombre,contacto.apellidos,contacto.correo,contacto.telf,contacto.imagen]);
 }
 
 function borrarContacto (numFila){
@@ -46,7 +56,6 @@ function insertarContactoJSON(contacto){
 HOJA.appendRow([contacto.name.first,contacto.name.last,contacto.email,contacto.phone, contacto.picture.large]);
 
 }
-
 
 
 
