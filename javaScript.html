@@ -1,5 +1,7 @@
 <script>
 
+  //E V E N T O S
+
   // Botón subir
   window.addEventListener('scroll', function() {
     if (window.scrollY > 400) {
@@ -36,10 +38,51 @@
     eliminarLoader();
   }
 
+ //DRAGOVER PARA CARGA DE IMAGEN
+  
+  document.getElementById('imgForm').addEventListener('dragover', function(event){
+    event.preventDefault();
+    this.style.filter = 'opacity(0%)';
+    document.getElementById('CajaIconForm').style.display = 'flex';
+
+  })
+ //DRAGLEAVE
+  document.getElementById('imgForm').addEventListener('dragleave', function(event){
+    this.style.filter = 'opacity(100%)';
+    document.getElementById('CajaIconForm').style.display = 'none';
+  })
+
+ //DROP
+
+   document.getElementById('imgForm').addEventListener('drop', function(event){
+
+    event.preventDefault();
+
+    let ficheros = event.dataTransfer.files;
+
+    //pasamos los archivos al input 
+    document.getElementById('imagen').files = ficheros;
+
+    //creamos una url para mostrar imagen 
+    document.getElementById('imgForm').src = URL.createObjectURL(ficheros[0]);
+
+    //mostramos la imagen quitamos zona de carga
+    this.style.filter = 'opacity(100%)';
+    document.getElementById('CajaIconForm').style.display = 'none';
+
+  })
+
+
+
+
+
+
+
+
+
   //const NOTIFICACION_OK = 1;
   //const NOTIFICACION_DANGER= 2;
   //const NOTIFICACION_WARNING = 3;
-
 
   // INSERTAR CONTACTO 
 

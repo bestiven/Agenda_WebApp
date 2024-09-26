@@ -27,5 +27,28 @@
   }
 
   
+  function crearLoaderImagen(elementoPadre){
+    let loader = document.createElement('div');
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.appendChild(document.createElement('div'));
+     loader.classList.add('lds-spinner');
+     elementoPadre.appendChild(loader);
+    
+    return loader;
+  }
+
+
+
+
 
 </script>

@@ -121,10 +121,21 @@
     let imagen = document.createElement('img');
     imagen.classList.add('img-fluid', 'rounded', 'img-contacto');
     imagen.src = contacto.imagen;
+    imagen.style.display ='none';
 
     //agregamos imagen a la caja 
     cajaImagenTarjeta.appendChild(imagen)
     imagenTarjeta.appendChild(cajaImagenTarjeta);
+
+    //creamos icono de carga
+    let loader = crearLoaderImagen(cajaImagenTarjeta);
+
+    //evento al finalizar 
+    imagen.onload = ()=>{
+      loader.remove();
+      imagen.style.display = 'inline';
+      
+    }
 
     return imagenTarjeta;
   }

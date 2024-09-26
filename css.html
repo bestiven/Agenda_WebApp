@@ -101,15 +101,7 @@ header {
 
 
 
-.img-form{
-  height: 18rem;
-  width: 18rem;
-  border: 1px solid black;
-  border-radius: 0.5rem;
-  /*object-fit: cover;*/
-  object-fit: contain;
 
-}
 
 .img-tabla{
   height: 4rem;
@@ -117,6 +109,44 @@ header {
   
 
 }
+
+/*clase Formulario*/
+
+.img-form{
+  position: absolute;
+  height: 18rem;
+  width: 18rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  /*object-fit: cover;*/
+  object-fit: contain;
+  z-index: 2;
+}
+
+.caja-icono-form{
+  position: absolute;
+  height: 18rem;
+  border: .4rem dashed blue;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.icono-img-form{
+  font-size: 10rem;
+  color: blue;
+  animation: animacion-drag-drop 3s infinite;
+}
+
+@keyframes animacion-drag-drop{
+
+  0%{}
+
+}
+
+
+
 
 /*LOADER CARGUE*/
 
