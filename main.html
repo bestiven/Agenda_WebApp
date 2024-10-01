@@ -32,9 +32,9 @@
         <form onsubmit="insertarContacto()" method="dialog" id="formulario">
             <div class="modal-body"> 
                 <!--Nombres y apellidos-->
-                <div class="row mb-3">
+                <div class="mb-3 d-flex justify-content-center align-items-center flex-wrap">
                   <!--Parte Izquierda-->
-                  <div class="col-6 d-flex flex-column">
+                  <div class="div-datos-form">
                       <!--Nombre-->
                       <div class="mb-2">
                         <label for="nombre" class="form-label">Ingresa el nombre </label>
@@ -62,14 +62,13 @@
                       </div>
                   </div>
                   <!--Parte Derecha-->
-                  <div class="col-6 d-flex justify-content-center align-items-center p-0 position-relative" >
+                  <div class="div-img-form" >
+                    <i class="icono-form bi bi-question-circle-fill btn" data-bs-toggle="popover" data-bs-content="Se recomienda imagenes cuadradas para mejor visualizacion,resolucion 320x320"></i>
                     <img src="" class="img-fluid img-form" id="imgForm"  alt="Imagen de contacto">
                     <div  class="caja-icono-form container-fluid" id="CajaIconForm">
                       <i class="icono-img-form  bi bi-cloud-plus"></i>
                     </div>
                   </div>
-
-                  
                 </div>
             </div>
             <div class="modal-footer">

@@ -82,6 +82,8 @@ header {
   background: currentColor;
 }
 
+
+
 .subir-arriba{
   background-color: var(--color-gris-claro); 
   position: fixed;
@@ -93,14 +95,13 @@ header {
   
 }
 
+//Cambio estilos 
+
 .img-contacto{
   object-fit: cover;
   height: 12rem;
   width: 12rem;
 }
-
-
-
 
 
 .img-tabla{
@@ -110,16 +111,41 @@ header {
 
 }
 
+.icono-form{
+  position: absolute;
+  color: var(--color-amarillo-claro);
+  font-size: 1.5rem;
+  right: 2rem;
+  top: 2rem;
+  z-index: 3;
+}
+
+
+.div-datos-form{
+  height: 20rem;
+  width:20rem;
+  margin: 1rem;
+}
+
+.div-img-form{
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center; 
+  height: 20rem;
+  width: 20rem;  
+}
+
+
 /*clase Formulario*/
 
 .img-form{
   position: absolute;
-  height: 18rem;
-  width: 18rem;
+  height: 15rem;
+  //width: 18rem;
   border: 1px solid black;
-  border-radius: 0.5rem;
-  /*object-fit: cover;*/
-  object-fit: contain;
+  border-radius: .5rem;
+  object-fit: cover;
   z-index: 2;
 }
 
@@ -139,13 +165,14 @@ header {
   animation: animacion-drag-drop 3s infinite;
 }
 
+
 @keyframes animacion-drag-drop{
 
-  0%{}
+  0%{font-size: 10rem;}
+  50%{font-size: 9rem;}
+  100%{font-size: 10rem;}
 
 }
-
-
 
 
 /*LOADER CARGUE*/
