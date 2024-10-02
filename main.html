@@ -2,7 +2,7 @@
   <!--Formulario-->
   <div class="d-flex justify-content-center my-3">
     <!--Botones Superiores-->
-    <button type="button" class="btn btn-success m-2" onclick="crearTarjetasContactos()">Mostrar Usuarios</button>
+    <button type="button" class="btn btn-success m-2" onclick="crearTarjetasCuadradas()">Mostrar Usuarios</button>
     <button type="button" class="btn btn-success m-2" onclick="crearTablaContactos()">Mostrar Contactos Tabla</button>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary m-2" onclick="abrirModalCrearContacto()">Crear contacto</button>
@@ -79,6 +79,73 @@
       </div>
     </div>
   </div>
+
+
+ <!--Modal Info Contacto -->
+<div class="modal fade" id="infoContactoModal" tabindex="-1" aria-labelledby="tituloCrearContactoModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center flex-column">
+          
+          <!-- Parte Superior -->
+          <div class="m-3 text-center">
+            <h3 class="text-uppercase fw-bold mb-2" id="nombreInfoContacto"></h3>
+            
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <i class="bi bi-envelope-fill me-2 text-primary"></i>
+              <h5 class="me-4 mb-0" id="correoInfoContacto"></h5>
+              <i id="copiarCorreo" class="bi bi-clipboard boton-copiar text-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Copiar Correo"></i>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center">
+              <i class="bi bi-telephone-fill me-2 text-primary"></i>
+              <h5 class="me-4 mb-0" id="telfInfoContacto"></h5>
+              <i id="copiarTelf" class="bi bi-clipboard boton-copiar text-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Copiar telefono"></i>
+            </div>
+          </div>
+
+          <!-- Parte Inferior (Imagen) -->
+          <div class="m-3">
+            <img id="imgInfoContacto" class="border border-4 border-dark rounded img-fluid" alt="Vista de imagen" style="max-width: 200px;">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Plantilla contacto 1 -->
+<template id="plantillaContacto">
+  <div id="plantillaNumero" class="my-5 mx-2">
+    <div class="caja-contacto">
+      <img id="plantillaImagen" alt="Imagen del contacto">
+      <div class="datos-contacto">
+        <h3 id="plantillaNombre"></h3>
+        <span>
+          <a id="plantillaInfo" class="btn btn-success">
+            <i class="bi bi-plus-square"></i>
+          </a>
+          <a id="plantillaEditar" class="btn btn-warning">
+            <i class="bi bi-pencil-square"></i>
+          </a>
+          <a id="plantillaBorrar" class="btn btn-danger">
+            <i class="bi bi-trash"></i>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</template>
+
 
 
 </main>

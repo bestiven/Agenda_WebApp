@@ -73,6 +73,41 @@
   })
 
 
+  document.getElementById('copiarCorreo').addEventListener('click', function(event){
+    
+    copiarContenido(this, 'correoInfoContacto' );
+  })
+
+   document.getElementById('copiarTelf').addEventListener('click', function(event){
+    
+    copiarContenido(this, 'telfInfoContacto' );
+  })
+
+  function copiarContenido(icono, id ){
+    let texto = document.getElementById(id).textContent;
+
+    navigator.clipboard.writeText(texto)
+    .then(()=>{
+      icono.classList.remove('bi-clipboard');
+      icono.classList.add('bi-check-lg');
+      icono.title = 'Copiado';
+      bootstrap.Tooltip.getOrCreateInstance(icono).show();
+
+      restaurarIcono(icono);
+      
+    })
+  }
+ 
+  function restaurarIcono(icono){
+     setTimeout(function(){
+        icono.classList.remove('bi-check-lg');
+        icono.classList.add('bi-clipboard');
+        icono.title = '';
+        bootstrap.Tooltip.getInstance(icono).dispose();
+  
+      },2000);
+  }
+
 
 
   //const NOTIFICACION_OK = 1;
