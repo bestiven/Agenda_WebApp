@@ -1,130 +1,5 @@
 <script>
 
- const ESTILO_TARJETA_1 ='plantillaContacto1';
- const ESTILO_TARJETA_2 ='plantillaContacto2';
- const ESTILO_TARJETA_3 ='plantillaContacto3';
- const ESTILO_TARJETA_4 ='plantillaContacto4';
- const ESTILO_TARJETA_5 ='plantillaContacto5';
-
- let estiloActual = ESTILO_TARJETA_1;
- 
-
-  //E V E N T O S//
-
-  //eventos botones mostrar contactos 
-  document.getElementById('tarjetasEstiloTabla').addEventListener('click', function(event) {
-    crearTablaContactos();
-});
-
-document.getElementById('tarjetasEstiloFila').addEventListener('click', function(event) {
-    crearTarjetasContactos();
-});
-
-document.getElementById('tarjetasEstilo1').addEventListener('click', function(event) {
-    estiloActual = ESTILO_TARJETA_1;
-    crearTarjetasCuadradas();
-});
-
-document.getElementById('tarjetasEstilo2').addEventListener('click', function(event) {
-    estiloActual = ESTILO_TARJETA_2;
-    crearTarjetasCuadradas();
-});
-
-document.getElementById('tarjetasEstilo3').addEventListener('click', function(event) {
-    estiloActual = ESTILO_TARJETA_3;
-    crearTarjetasCuadradas();
-});
-document.getElementById('tarjetasEstilo4').addEventListener('click', function(event) {
-    estiloActual = ESTILO_TARJETA_4;
-    crearTarjetasCuadradas();
-});
-document.getElementById('tarjetasEstilo5').addEventListener('click', function(event) {
-    estiloActual = ESTILO_TARJETA_5;
-    crearTarjetasCuadradas();
-});
-
-
-  // Botón subir
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 400) {
-      document.getElementById('botonSubir').style.transform = 'scale(1)';
-    } else {
-      document.getElementById('botonSubir').style.transform = 'scale(0)';
-    }
-  });
-
-  //evento de cargar imagen
-    document.getElementById('imagen').addEventListener("change",function(){
-      document.getElementById('imgForm').src = URL.createObjectURL(this.files[0])
-    });
-
-
-  function subirArriba(){
-    console.log('hace el Scroll')
-    window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // Hace el scroll suave
-  });
-  }
-
-  function limpiar(){
-    borrarTabla();
-    eliminarTarjetas();
-    //crear loader 
-    crearLoader('divContactos');
-
-  }
-
-  function mostrar(){
-    crearTarjetasContactos();
-    eliminarLoader();
-  }
-
- //DRAGOVER PARA CARGA DE IMAGEN
-  
-  document.getElementById('imgForm').addEventListener('dragover', function(event){
-    event.preventDefault();
-    this.style.filter = 'opacity(0%)';
-    document.getElementById('CajaIconForm').style.display = 'flex';
-
-  })
- //DRAGLEAVE
-  document.getElementById('imgForm').addEventListener('dragleave', function(event){
-    this.style.filter = 'opacity(100%)';
-    document.getElementById('CajaIconForm').style.display = 'none';
-  })
-
- //DROP
-
-   document.getElementById('imgForm').addEventListener('drop', function(event){
-
-    event.preventDefault();
-
-    let ficheros = event.dataTransfer.files;
-
-    //pasamos los archivos al input 
-    document.getElementById('imagen').files = ficheros;
-
-    //creamos una url para mostrar imagen 
-    document.getElementById('imgForm').src = URL.createObjectURL(ficheros[0]);
-
-    //mostramos la imagen quitamos zona de carga
-    this.style.filter = 'opacity(100%)';
-    document.getElementById('CajaIconForm').style.display = 'none';
-
-  })
-
-
-  document.getElementById('copiarCorreo').addEventListener('click', function(event){
-    
-    copiarContenido(this, 'correoInfoContacto' );
-  })
-
-   document.getElementById('copiarTelf').addEventListener('click', function(event){
-    
-    copiarContenido(this, 'telfInfoContacto' );
-  })
-
   function copiarContenido(icono, id ){
     let texto = document.getElementById(id).textContent;
 
@@ -150,202 +25,28 @@ document.getElementById('tarjetasEstilo5').addEventListener('click', function(ev
       },2000);
   }
 
+  function mostrar(){
+    crearTarjetas();
+  
+  }
+
+
+  function extraerContactos(datos){
+    let contactos = [];
+    for(let i=1; i<datos.length; i++){
+
+      contactos.push(new Contacto(datos[i][0],datos[i][1],datos[i][2],datos[i][3],datos[i][4],i+1));
+    }
+    return contactos;
+  }
+
 
 
   //const NOTIFICACION_OK = 1;
   //const NOTIFICACION_DANGER= 2;
   //const NOTIFICACION_WARNING = 3;
 
-  // INSERTAR CONTACTO 
 
-  function insertarContacto(){
-    
-    limpiar();
-    //cerrar modal 
-    bootstrap.Modal.getInstance(document.getElementById('crearContactoModal')).hide();
-    
-
-    let contacto = guardarDatosContacto();
-    let archivo = document.getElementById('imagen').files[0];
-
-    if(archivo) subirImagenInsertar(contacto,archivo);
-    else{
-      google.script.run
-      .withSuccessHandler(contactoInsertadoCorrectamente)
-      .withFailureHandler(contactoInsertadoError)
-      .insertarContacto(contacto);
-    }
-
-  
-    
-  }
-
-  function guardarDatosContacto(){
-   
-    let contacto ={
-      nombre    :   document.getElementById('nombre').value,
-      apellidos :   document.getElementById('apellidos').value,
-      correo    :   document.getElementById('correo').value,
-      telf      :   document.getElementById('telf').value,
-      imagen    :   document.getElementById('imgForm').src
-
-
-    };
-    console.log('contacto',contacto);
-    return contacto;
-  }
-
-  function subirImagenInsertar(contacto,archivo){
-    let fr = new FileReader();
-    fr.readAsArrayBuffer(archivo);
-
-
-    fr.onload = function(){
-
-      let imagen = {
-        nombre:archivo.name,
-        tipo: archivo.type,
-        datos:Array.from(new Int8Array(this.result))
-       
-      };
-
-      google.script.run
-      .withSuccessHandler(contactoInsertadoCorrectamente)
-      .withFailureHandler(contactoInsertadoError)
-      .insertarContacto(contacto,imagen);
-    }
-  }
-
-
-  function contactoInsertadoCorrectamente() {
-    // Eliminamos los datos de los inputs
-    document.getElementById('nombre').value = '';
-    document.getElementById('correo').value = '';
-
-    // Mostrar notificación
-    crearNotificacionContacto('Contacto insertado correctamente','CONTACTO OK')
-  
-    mostrar();
-  }
-
-  function contactoInsertadoError() {
-    crearNotificacionError('No se ha podido insertar el contacto', 'ERROR');
-
-    mostrar();
-  }
-
-  //  MODIFICAR CONTACTO 
-  
-  function modificarContacto(numFila){
-
-    limpiar();
-
-    //cerrar modal
-    bootstrap.Modal.getOrCreateInstance(document.getElementById('crearContactoModal')).hide();
-
-    let contacto = guardarDatosContacto();
-    contacto.fila= numFila;
-
-    let archivo = document.getElementById('imagen').files[0];
-
-    if(archivo) subirImagenModificar(contacto,archivo);
-    else{
-    
-    google.script.run
-    .withSuccessHandler(contactoModificadoCorrectamente)
-    .withFailureHandler(contactoModificadoError) 
-    .modificarContacto(contacto);
-    }
-
-    
-  }
-
-  function subirImagenModificar(contacto,archivo){
-    let fr = new FileReader();
-    fr.readAsArrayBuffer(archivo);
-
-
-    fr.onload = function(){
-
-      let imagen = {
-        nombre:archivo.name,
-        tipo: archivo.type,
-        datos:Array.from(new Int8Array(this.result))
-       
-      };
-
-      google.script.run
-      .withSuccessHandler(contactoModificadoCorrectamente)
-      .withFailureHandler(contactoModificadoError)
-      .modificarContacto(contacto,imagen);
-    }
-  }
-
-
-
-
-
-  function contactoModificadoCorrectamente(){
-     // Mostrar notificación
-    crearNotificacionContacto('Contacto Modificado correctamente','MODIFICADO OK')
-    mostrar();
-  }
-
-  function contactoModificadoError(){
-    crearNotificacionError('No se ha podido Modificar el contacto', 'ERROR');
-    mostrar();
-  }
-
-  // BORRAR CONTACTO 
-  function borrarContacto(numFila){
-    
-    limpiar();
-
-    google.script.run
-    .withSuccessHandler(contactoBorradoCorrectamente)
-    .withFailureHandler(contactoBorradoError) 
-    .borrarContacto(numFila);
-  }
-
-
-  function contactoBorradoCorrectamente(){
-    // Mostrar notificación
-    crearNotificacionBorrar('Contacto Borrado correctamente','BORRADO OK')
-
-    mostrar();
-  }
-
-  function contactoBorradoError(){
-    crearNotificacionError('No se ha podido borrar el contacto', 'ERROR');
-
-    mostrar();
-  }
-
- 
-  // IMPORTAR CONTACTO 
-  function importarContactos(){
-
-    limpiar();
-
-    google.script.run
-    .withSuccessHandler(contactosImportadosCorrectamente)
-    .withFailureHandler(contactosImportadosError) 
-    .importarContactos();
-  }
-
-  function contactosImportadosCorrectamente(){
-    // Mostrar notificación
-    crearNotificacionOK('Contacto Importado correctamente','IMPORTADO OK')
-
-    mostrar();
-
-  }
-
-  function contactosImportadosError(){
-    crearNotificacionError('No se ha podido Importar el contacto', 'ERROR');
-      mostrar();
-    
-  }
 
   //habilitar popover 
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
